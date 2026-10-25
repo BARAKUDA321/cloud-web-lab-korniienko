@@ -64,7 +64,9 @@ def api_info():
         "application": APP_TITLE,
         "platform": "cloud",
         "runtime": "python-flask",
-        "status": "running"
+        "status": "running",
+           "student": "Корнієнко",
+              "version": "1.1"
     })
 
 
