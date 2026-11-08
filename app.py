@@ -8,6 +8,11 @@ def index():
     return """
     <h1>CI/CD Cloud App</h1>
     <p>Версія застосунку розгортається автоматично.</p>
+
+
+
+
+<p>CI/CD deployment version 2</p>
     """
 
 
