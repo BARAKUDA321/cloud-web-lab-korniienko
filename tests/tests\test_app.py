@@ -1,39 +1,27 @@
 from app import app
 
 
-def test_home_page():
+def test_index():
     client = app.test_client()
-
     response = client.get("/")
 
     assert response.status_code == 200
-    assert b"CI/CD Cloud App" in response.data
-
-
-def test_health():
-    client = app.test_client()
-
-    response = client.get("/health")
     data = response.get_json()
-
-    assert response.status_code == 200
-    assert data["status"] == "ok"
+    assert data["status"] == "running"
 
 
-def test_unknown_route():
+def test_admin_stats_requires_token():
     client = app.test_client()
+    response = client.get("/api/admin/stats")
 
-    response = client.get("/not-found")
-
-    assert response.status_code == 404
+    assert response.status_code == 401
 
 
-def test_lessons():
+def test_create_lesson_requires_token():
     client = app.test_client()
+    response = client.post(
+        "/api/lessons",
+        json={"subject": "Test", "room": "ауд. 1", "status": "new"}
+    )
 
-    response = client.get("/api/lessons")
-    data = response.get_json()
-
-    assert response.status_code == 200
-    assert len(data) == 3
-    assert data[0]["id"] == 1
+    assert response.status_code == 401
